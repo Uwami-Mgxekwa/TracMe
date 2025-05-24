@@ -166,7 +166,7 @@ function loadStudentData() {
 // Load from JSON file
 async function loadFromJSON() {
     try {
-        const response = await fetch('../data/data.json');
+        const response = await fetch('data/data.json');
         if (!response.ok) throw new Error('JSON file not found');
         return await response.json();
     } catch (error) {
