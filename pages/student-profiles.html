@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TracMe - Overall Performance</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <!-- Same sidebar as index.html -->
+    </div>
+    
+    <div class="main-content" id="mainContent">
+        <header>
+            <button id="hamburger">☰</button>
+            <h1>Overall Performance</h1>
+            <button id="themeToggle">🌙</button>
+        </header>
+        
+        <div class="performance-container">
+            <div class="performance-card">
+                <h2>Academic Summary</h2>
+                <div class="summary-stats">
+                    <div class="stat">
+                        <span class="value" id="gpa">3.75</span>
+                        <span class="label">Current GPA</span>
+                    </div>
+                    <div class="stat">
+                        <span class="value" id="rank">12</span>
+                        <span class="label">Class Rank</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="performance-card">
+                <h2>Grade Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="gradeChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="performance-card">
+                <h2>Performance Trends</h2>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./scripts/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Grade Distribution Chart
+            const gradeCtx = document.getElementById('gradeChart').getContext('2d');
+            new Chart(gradeCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['A (90-100)', 'B (80-89)', 'C (70-79)', 'D (60-69)', 'F (<60)'],
+                    datasets: [{
+                        data: [3, 4, 2, 1, 0],
+                        backgroundColor: [
+                            '#4CAF50',
+                            '#2196F3',
+                            '#FFC107',
+                            '#FF9800',
+                            '#F44336'
+                        ]
+                    }]
+                }
+            });
+            
+            // Performance Trend Chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'],
+                    datasets: [{
+                        label: 'GPA Trend',
+                        data: [3.2, 3.5, 3.6, 3.75],
+                        borderColor: '#4CAF50',
+                        fill: false
+                    }]
+                }
+            });
+        });
+    </script>
+</body>
+</html>
