@@ -1,7 +1,6 @@
 # **TracMe - Student Grading & Improvement System**  
 **Developed by ZiloTech**  
 
-![TracMe Logo](https://via.placeholder.com/150) *(Replace with an actual logo if available)*  
 
 ## **📌 Table of Contents**  
 1. [Introduction](#-introduction)  
