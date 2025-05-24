@@ -1,0 +1,50 @@
+{
+  "student": {
+    "name": "Alex Johnson",
+    "id": "ST12345",
+    "subjects": [
+      {
+        "name": "Mathematics",
+        "grade": 88,
+        "credits": 4,
+        "teacher": "Dr. Smith"
+      },
+      {
+        "name": "Physics",
+        "grade": 95,
+        "credits": 4,
+        "teacher": "Prof. Johnson"
+      },
+      {
+        "name": "Chemistry",
+        "grade": 82,
+        "credits": 4,
+        "teacher": "Dr. Brown"
+      },
+      {
+        "name": "English Literature",
+        "grade": 76,
+        "credits": 3,
+        "teacher": "Ms. Davis"
+      },
+      {
+        "name": "World History",
+        "grade": 90,
+        "credits": 3,
+        "teacher": "Mr. Wilson"
+      },
+      {
+        "name": "Biology",
+        "grade": 72,
+        "credits": 4,
+        "teacher": "Dr. Garcia"
+      },
+      {
+        "name": "Computer Science",
+        "grade": 54,
+        "credits": 3,
+        "teacher": "Prof. Lee"
+      }
+    ]
+  }
+}

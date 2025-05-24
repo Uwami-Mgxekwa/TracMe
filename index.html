@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TracMe</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            📊 TracMe
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header-controls">
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">🏠</span>
+                Home
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">👥</span>
+                Student Profiles
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📚</span>
+                Subjects & Grades
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📈</span>
+                Overall Performance
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📊</span>
+                Reports & Analytics
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                Settings
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📤</span>
+                Export Data
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">❓</span>
+                Help/Support
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">🚪</span>
+                Logout
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Student Dashboard</h1>
+                <p class="dashboard-subtitle">Track your academic progress and performance</p>
+            </div>
+
+            <!-- Overall Performance Card -->
+            <div class="performance-card">
+                <div class="avg-score" id="avgScore">0%</div>
+                <div class="avg-label">Overall Average</div>
+                
+                <div class="performance-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalSubjects">0</div>
+                        <div class="stat-label">Total Subjects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="aboveAverage">0</div>
+                        <div class="stat-label">Above Average</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="needImprovement">0</div>
+                        <div class="stat-label">Need Improvement</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subjects Section -->
+            <section class="subjects-section">
+                <h2 class="section-title">
+                    📚 Subject Performance
+                </h2>
+                
+                <div class="subjects-grid" id="subjectsGrid">
+                    <!-- Subject cards will be dynamically generated here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <button class="fab" title="Add New Grade">+</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <p>&copy; 2025 ZiloTech. All rights reserved. | Contact: support@tracme.com</p>
+    </footer>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
