@@ -100,14 +100,11 @@ function handleResponsiveLayout() {
         }
         mainContent.classList.remove('expanded');
         footer.classList.remove('expanded');
-        // Keep hamburger visible on mobile
-        hamburger.style.display = 'block';
     } else {
         // Desktop layout
         sidebar.classList.remove('mobile-hidden', 'mobile-show');
         sidebarOverlay.classList.remove('active');
         document.body.style.overflow = '';
-        hamburger.style.display = 'block';
         
         if (!sidebar.classList.contains('desktop-hidden')) {
             sidebar.classList.add('desktop-show');
