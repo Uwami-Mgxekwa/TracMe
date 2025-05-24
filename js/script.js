@@ -100,11 +100,14 @@ function handleResponsiveLayout() {
         }
         mainContent.classList.remove('expanded');
         footer.classList.remove('expanded');
+        // Keep hamburger visible on mobile
+        hamburger.style.display = 'block';
     } else {
         // Desktop layout
         sidebar.classList.remove('mobile-hidden', 'mobile-show');
         sidebarOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        hamburger.style.display = 'block';
         
         if (!sidebar.classList.contains('desktop-hidden')) {
             sidebar.classList.add('desktop-show');
@@ -155,7 +158,7 @@ function loadStudentData() {
         })
         .catch(error => {
             console.error('Error loading data:', error);
-            showErrorMessage('Failed to load student data from data.json. Using default data.');
+            showErrorMessage('Failed to load student data from data/data.json. Using default data.');
             loadDefaultData().then(data => {
                 studentData = data;
                 renderDashboard();
@@ -167,10 +170,15 @@ function loadStudentData() {
 async function loadFromJSON() {
     try {
         const response = await fetch('data/data.json');
-        if (!response.ok) throw new Error('JSON file not found');
-        return await response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log('Successfully loaded data from data/data.json');
+        return data;
     } catch (error) {
-        throw new Error('Failed to load JSON data');
+        console.error('Failed to load JSON data:', error.message);
+        throw new Error(`Failed to load JSON data: ${error.message}`);
     }
 }
 
