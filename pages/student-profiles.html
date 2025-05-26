@@ -3,91 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TracMe - Overall Performance</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <title>TracMe - Student Profiles</title>
+    <link rel="stylesheet" href="../css/student-profiles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
-    <div class="sidebar" id="sidebar">
-        <!-- Same sidebar as index.html -->
-    </div>
-    
-    <div class="main-content" id="mainContent">
-        <header>
-            <button id="hamburger">☰</button>
-            <h1>Overall Performance</h1>
-            <button id="themeToggle">🌙</button>
-        </header>
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">📊</div>
+            <div class="logo-text">TracMe - ZiloTech</div>
+        </div>
         
-        <div class="performance-container">
-            <div class="performance-card">
-                <h2>Academic Summary</h2>
-                <div class="summary-stats">
-                    <div class="stat">
-                        <span class="value" id="gpa">3.75</span>
-                        <span class="label">Current GPA</span>
-                    </div>
-                    <div class="stat">
-                        <span class="value" id="rank">12</span>
-                        <span class="label">Class Rank</span>
-                    </div>
-                </div>
+        <nav>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                Home
+            </a>
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">👥</div>
+                Student Profiles
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📚</div>
+                Subjects & Grades
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📈</div>
+                Overall Performance
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📊</div>
+                Reports & Analytics
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">⚙️</div>
+                Settings
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📤</div>
+                Export Data
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">❓</div>
+                Help/Support
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🚪</div>
+                Logout
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">Student Profiles</h1>
+            <p class="page-subtitle">Manage and view detailed student information and academic performance</p>
+        </div>
+
+        <div class="search-filter">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search students..." id="searchInput">
+                <div class="search-icon">🔍</div>
             </div>
-            
-            <div class="performance-card">
-                <h2>Grade Distribution</h2>
-                <div class="chart-container">
-                    <canvas id="gradeChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="performance-card">
-                <h2>Performance Trends</h2>
-                <div class="chart-container">
-                    <canvas id="trendChart"></canvas>
-                </div>
-            </div>
+            <select class="filter-select" id="gradeFilter">
+                <option value="">All Grades</option>
+                <option value="A">Grade A</option>
+                <option value="B">Grade B</option>
+                <option value="C">Grade C</option>
+                <option value="D">Grade D</option>
+            </select>
+            <select class="filter-select" id="classFilter">
+                <option value="">All Classes</option>
+                <option value="10A">Class 10A</option>
+                <option value="10B">Class 10B</option>
+                <option value="11A">Class 11A</option>
+                <option value="11B">Class 11B</option>
+            </select>
+        </div>
+
+        <div class="students-grid" id="studentsGrid">
+            <!-- Students will be populated by JavaScript -->
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">😔</div>
+            <h3>No students found</h3>
+            <p>Try adjusting your search criteria</p>
         </div>
     </div>
-    
-    <script src="./scripts/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Initialize charts
-        document.addEventListener('DOMContentLoaded', function() {
-            // Grade Distribution Chart
-            const gradeCtx = document.getElementById('gradeChart').getContext('2d');
-            new Chart(gradeCtx, {
-                type: 'pie',
-                data: {
-                    labels: ['A (90-100)', 'B (80-89)', 'C (70-79)', 'D (60-69)', 'F (<60)'],
-                    datasets: [{
-                        data: [3, 4, 2, 1, 0],
-                        backgroundColor: [
-                            '#4CAF50',
-                            '#2196F3',
-                            '#FFC107',
-                            '#FF9800',
-                            '#F44336'
-                        ]
-                    }]
-                }
-            });
-            
-            // Performance Trend Chart
-            const trendCtx = document.getElementById('trendChart').getContext('2d');
-            new Chart(trendCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'],
-                    datasets: [{
-                        label: 'GPA Trend',
-                        data: [3.2, 3.5, 3.6, 3.75],
-                        borderColor: '#4CAF50',
-                        fill: false
-                    }]
-                }
-            });
-        });
-    </script>
+
+<script src="../js/student-profiles.js"></script>
 </body>
 </html>
