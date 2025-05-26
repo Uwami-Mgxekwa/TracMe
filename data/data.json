@@ -41,9 +41,15 @@
       },
       {
         "name": "Computer Science",
-        "grade": 40,
+        "grade": 20,
         "credits": 3,
         "teacher": "Prof. Lee"
+      },
+      {
+        "name": "Web Development",
+        "grade": 70,
+        "credits": 6,
+        "teacher": "Mr Owami"
       }
     ]
   }
