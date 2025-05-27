@@ -40,6 +40,41 @@ class SubjectsGradesManager {
 
         // File upload events
         this.initializeFileUploadEvents();
+
+        // Handle window resize for responsive layout
+        window.addEventListener('resize', () => {
+            this.handleResponsiveLayout();
+        });
+
+        // Initial responsive layout setup
+        this.handleResponsiveLayout();
+    }
+
+    // Handle responsive layout changes
+    handleResponsiveLayout() {
+        // Check if we need mobile layout
+        const isMobile = window.innerWidth <= 768;
+        
+        // Ensure mobile cards container exists
+        this.ensureMobileContainer();
+        
+        // Re-render subjects with appropriate layout
+        this.renderSubjects();
+    }
+
+    // Ensure mobile cards container exists
+    ensureMobileContainer() {
+        let mobileContainer = document.querySelector('.mobile-subjects-cards');
+        if (!mobileContainer) {
+            mobileContainer = document.createElement('div');
+            mobileContainer.className = 'mobile-subjects-cards';
+            
+            // Insert after the subjects table container
+            const tableContainer = document.querySelector('.subjects-table-container');
+            if (tableContainer && tableContainer.parentNode) {
+                tableContainer.parentNode.insertBefore(mobileContainer, tableContainer.nextSibling);
+            }
+        }
     }
 
     // Initialize modal event listeners
@@ -283,7 +318,7 @@ class SubjectsGradesManager {
     // Update the entire UI
     updateUI() {
         this.updateQuickStats();
-        this.renderSubjectsTable();
+        this.renderSubjects();
     }
 
     // Update quick statistics
@@ -300,7 +335,13 @@ class SubjectsGradesManager {
         document.getElementById('lowGrade').textContent = `${lowGrade}%`;
     }
 
-    // Render subjects table
+    // Render subjects for both desktop and mobile
+    renderSubjects() {
+        this.renderSubjectsTable();
+        this.renderMobileCards();
+    }
+
+    // Render subjects table (desktop)
     renderSubjectsTable() {
         const tableBody = document.getElementById('subjectsTableBody');
         const emptyState = document.getElementById('emptyState');
@@ -331,6 +372,67 @@ class SubjectsGradesManager {
                     </div>
                 </td>
             </tr>
+        `).join('');
+    }
+
+    // Render mobile cards
+    renderMobileCards() {
+        let mobileContainer = document.querySelector('.mobile-subjects-cards');
+        
+        if (!mobileContainer) {
+            this.ensureMobileContainer();
+            mobileContainer = document.querySelector('.mobile-subjects-cards');
+        }
+
+        if (this.subjects.length === 0) {
+            mobileContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">📚</div>
+                    <h3>No subjects found</h3>
+                    <p>Add your first subject to start tracking your grades!</p>
+                    <button class="btn btn-primary" onclick="subjectsManager.openAddSubjectModal()">Add Subject</button>
+                </div>
+            `;
+            return;
+        }
+
+        mobileContainer.innerHTML = this.subjects.map(subject => `
+            <div class="subject-card">
+                <div class="subject-card-header">
+                    <h3 class="subject-card-title">${this.escapeHtml(subject.name)}</h3>
+                    <div class="subject-card-grade">${subject.grade}%</div>
+                </div>
+                
+                <div class="subject-card-details">
+                    <div class="subject-card-detail">
+                        <div class="subject-card-detail-label">Letter Grade</div>
+                        <div class="subject-card-detail-value">${this.getLetterGrade(subject.grade)}</div>
+                    </div>
+                    <div class="subject-card-detail">
+                        <div class="subject-card-detail-label">Status</div>
+                        <div class="subject-card-detail-value">${this.getGradeStatusText(subject.grade)}</div>
+                    </div>
+                    <div class="subject-card-detail">
+                        <div class="subject-card-detail-label">Last Updated</div>
+                        <div class="subject-card-detail-value">${this.formatDate(subject.lastUpdated)}</div>
+                    </div>
+                    ${subject.description ? `
+                        <div class="subject-card-detail">
+                            <div class="subject-card-detail-label">Description</div>
+                            <div class="subject-card-detail-value">${this.escapeHtml(subject.description)}</div>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="subject-card-actions">
+                    <button class="action-btn edit-btn" onclick="subjectsManager.editSubject(${subject.id})">
+                        ✏️ Edit
+                    </button>
+                    <button class="action-btn delete-btn" onclick="subjectsManager.deleteSubject(${subject.id})">
+                        🗑️ Delete
+                    </button>
+                </div>
+            </div>
         `).join('');
     }
 
@@ -383,7 +485,7 @@ class SubjectsGradesManager {
         // Temporarily replace subjects for rendering
         const originalSubjects = this.subjects;
         this.subjects = filteredSubjects;
-        this.renderSubjectsTable();
+        this.renderSubjects();
         this.subjects = originalSubjects;
     }
 
@@ -610,6 +712,14 @@ class SubjectsGradesManager {
         }
         
         return `<span class="status-indicator ${statusClass}">${statusText}</span>`;
+    }
+
+    // Get grade status text without HTML (for mobile cards)
+    getGradeStatusText(grade) {
+        if (grade >= 90) return '🌟 Excellent';
+        if (grade >= 80) return '👍 Good';
+        if (grade >= 70) return '⚡ Average';
+        return '⚠️ Needs Improvement';
     }
 
     formatDate(date) {
