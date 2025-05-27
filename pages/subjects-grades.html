@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects & Grades - TracMe</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/subjects-grades.css">
+    <link rel="icon" href="../assets/logo2.jpg" type="image/x-icon">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            📊 TracMe - ZiloTech(Owami)
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header-controls">
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <a href="../index.html" class="nav-item">
+                <span class="nav-icon">🏠</span>
+                Home
+            </a>
+            <a href="./student-profiles.html" class="nav-item">
+                <span class="nav-icon">👥</span>
+                Student Profiles
+            </a>
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">📚</span>
+                Subjects & Grades
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📈</span>
+                Overall Performance
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📊</span>
+                Reports & Analytics
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                Settings
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📤</span>
+                Export Data
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">❓</span>
+                Help/Support
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">🚪</span>
+                Logout
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="page-header">
+                <h1 class="page-title">Subjects & Grades</h1>
+                <p class="page-subtitle">Manage your academic subjects and track your grades</p>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="addSubjectBtn">
+                        <span class="btn-icon">➕</span>
+                        Add Subject
+                    </button>
+                    <button class="btn btn-secondary" id="bulkImportBtn">
+                        <span class="btn-icon">📁</span>
+                        Import CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalSubjectsCount">0</div>
+                        <div class="stat-label">Total Subjects</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="averageGrade">0%</div>
+                        <div class="stat-label">Average Grade</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="topGrade">0%</div>
+                        <div class="stat-label">Highest Grade</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="lowGrade">0%</div>
+                        <div class="stat-label">Lowest Grade</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="controls-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search subjects...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="filter-controls">
+                    <select class="filter-select" id="gradeFilter">
+                        <option value="all">All Grades</option>
+                        <option value="excellent">Excellent (90-100%)</option>
+                        <option value="good">Good (80-89%)</option>
+                        <option value="average">Average (70-79%)</option>
+                        <option value="poor">Poor (Below 70%)</option>
+                    </select>
+                    <select class="filter-select" id="sortBy">
+                        <option value="name">Sort by Name</option>
+                        <option value="grade-desc">Grade (High to Low)</option>
+                        <option value="grade-asc">Grade (Low to High)</option>
+                        <option value="recent">Recently Added</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Subjects Table -->
+            <div class="subjects-table-container">
+                <table class="subjects-table" id="subjectsTable">
+                    <thead>
+                        <tr>
+                            <th>Subject Name</th>
+                            <th>Grade (%)</th>
+                            <th>Letter Grade</th>
+                            <th>Status</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subjectsTableBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">📚</div>
+                    <h3>No subjects found</h3>
+                    <p>Add your first subject to start tracking your grades!</p>
+                    <button class="btn btn-primary" onclick="openAddSubjectModal()">Add Subject</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Subject Modal -->
+    <div class="modal" id="subjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add New Subject</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <form class="modal-body" id="subjectForm">
+                <div class="form-group">
+                    <label for="subjectName">Subject Name</label>
+                    <input type="text" id="subjectName" name="subjectName" required>
+                </div>
+                <div class="form-group">
+                    <label for="subjectGrade">Grade (%)</label>
+                    <input type="number" id="subjectGrade" name="subjectGrade" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="subjectDescription">Description (Optional)</label>
+                    <textarea id="subjectDescription" name="subjectDescription" rows="3"></textarea>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn" form="subjectForm">Save Subject</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirm Delete</h2>
+                <button class="modal-close" id="deleteModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="deleteSubjectName"></strong>?</p>
+                <p class="warning-text">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Import Modal -->
+    <div class="modal" id="importModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Import Subjects from CSV</h2>
+                <button class="modal-close" id="importModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="file-upload-area" id="fileUploadArea">
+                    <div class="upload-icon">📁</div>
+                    <p>Drag and drop your CSV file here, or <button type="button" class="link-btn" id="browseFileBtn">browse</button></p>
+                    <small>CSV should have columns: Subject Name, Grade</small>
+                    <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+                </div>
+                <div class="import-preview" id="importPreview" style="display: none;">
+                    <h4>Preview:</h4>
+                    <div class="preview-table-container">
+                        <table class="preview-table" id="previewTable">
+                            <thead>
+                                <tr>
+                                    <th>Subject Name</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody id="previewTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelImportBtn">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmImportBtn" disabled>Import Subjects</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <p>&copy; 2025 ZiloTech. All rights reserved. | Contact: support@tracme.com</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/subjects-grades.js"></script>
+    <script src="../js/script.js"></script> 
+</body>
+</html>
